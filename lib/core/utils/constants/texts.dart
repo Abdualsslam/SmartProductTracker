@@ -1,20 +1,30 @@
-class AppTexts {
-  // App related constants
-  static const String appName = 'Smart Product Tracker';
-  static const String appVersion = '1.0.0';
+abstract class AppStrings {
+  //All Strings
 
-  // API related constants
-  static const String baseUrl = 'https://api.example.com';
-  static const String apiKey = 'YOUR_API_KEY_HERE';
-
-  // Error messages
-  static const String networkError = 'Unable to connect. Please check your internet connection.';
-  static const String unknownError = 'An unknown error occurred. Please try again later.';
-
-  // Success messages
-  static const String operationSuccessful = 'Operation completed successfully.';
-
-  // UI related constants
-  static const String welcomeMessage = 'Welcome to\n Smart Product Tracker!';
-  static const String loadingMessage = 'Loading, please wait...';
+  static const String appName = "Yemen History!",
+      SPLASH_SCREEN = "'Welcome to \n Yemen History!'",
+      welcomeMessage = 'Welcome to\n Smart Product Tracker!',
+          //!On Boarding Strings
+          skip =
+          "Skip",
+      next = "Next",
+      createAccount = "Create Account",
+      loginNow = "Login Now",
+          //!Auth Strings
+          welcome =
+          "Welcome!",
+      welcomeBack = "Welcome Back!",
+      fristName = "First Name",
+      lastName = "Last Name",
+      emailAddress = "Email Address",
+      password = "Password",
+      iHaveAgreeToOur = "I have agree to our ",
+      termsAndCondition = "Terms and Condition",
+      signUp = "Sign Up",
+      signIn = "Sign In",
+      alreadyHaveAnAccount = "Already have an account ? ",
+      dontHaveAnAccount = "Don’t have an account ? ",
+      forgotPassword = "Forgot Password ?",
+      resetPassword = "Reset Password",
+      resetPasswordMessage = "Please enter your email address to receive a verification code";
 }
