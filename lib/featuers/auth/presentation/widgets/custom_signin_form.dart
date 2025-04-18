@@ -20,8 +20,7 @@ class CustomSignInForm extends StatelessWidget {
         if (state is SigninSuccessState) {
           FirebaseAuth.instance.currentUser!.emailVerified
               ? customReplacementNavigate(context, "/home")
-              : print('Please Verify Your Accoun');
-          FlutterNotie.warning(context, message: AppStrings.plzVerifyYourAccount);
+              : FlutterNotie.warning(context, message: AppStrings.plzVerifyYourAccount);
         } else if (state is SigninFailureState) {
           FlutterNotie.error(context, message: state.errMessage);
         }

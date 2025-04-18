@@ -1,6 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_product_tracker/core/functions/navigation/navigation.dart';
+import 'package:smart_product_tracker/core/functions/navigation/navigate_based_on_auth.dart';
 import 'package:smart_product_tracker/core/utils/constants/colors.dart';
 import 'package:smart_product_tracker/core/utils/constants/images.dart';
 import 'package:smart_product_tracker/core/utils/constants/texts.dart';
@@ -16,15 +15,8 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
-    FirebaseAuth.instance.currentUser == null ? delayedNavagte(context, '/signUp') : delayedNavagte(context, '/home');
-
+    navigateBasedOnAuth(context);
     super.initState();
-  }
-
-  void delayedNavagte(context, path) {
-    Future.delayed(const Duration(seconds: 2), () {
-      customReplacementNavigate(context, path);
-    });
   }
 
   @override
