@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "926010254735",
+    "project_id": "smart-product-tracker",
+    "storage_bucket": "smart-product-tracker.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926010254735:android:f2b3e617f384392adc97fa",
+        "android_client_info": {
+          "package_name": "com.example.smart_product_tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3vQ18vPJ0hvLMZTN4NurFvq9giG7n8qU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926010254735:android:bfb65aff11710849dc97fa",
+        "android_client_info": {
+          "package_name": "com.example.yemenhistory"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3vQ18vPJ0hvLMZTN4NurFvq9giG7n8qU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

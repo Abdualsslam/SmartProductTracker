@@ -1,5 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_product_tracker/core/navigation/navigation.dart';
+import 'package:smart_product_tracker/core/functions/navigation/navigation.dart';
 import 'package:smart_product_tracker/core/utils/constants/colors.dart';
 import 'package:smart_product_tracker/core/utils/constants/images.dart';
 import 'package:smart_product_tracker/core/utils/constants/texts.dart';
@@ -15,15 +16,8 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
-    // bool skip = getIt<CacheHelper>().getData(key: 'isOnBoardingVisited') ?? false;
+    FirebaseAuth.instance.currentUser == null ? delayedNavagte(context, '/signUp') : delayedNavagte(context, '/home');
 
-    // if (skip) {
-    //   FirebaseAuth.instance.currentUser == null ? delayedNavagte(context, '/signUp') : delayedNavagte(context, '/home');
-    // } else {
-    //   delayedNavagte(context, '/onBoarding');
-    // }
-
-    delayedNavagte(context, '/home');
     super.initState();
   }
 
@@ -35,8 +29,9 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
+    final dark = HelperFunctions.isDarkMode(context);
     return Scaffold(
-      backgroundColor: HelperFunctions.isDarkMode == true ? AppColors.dark : AppColors.buttonDisabled,
+      backgroundColor: dark ? AppColors.dark : AppColors.primaryBackground,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

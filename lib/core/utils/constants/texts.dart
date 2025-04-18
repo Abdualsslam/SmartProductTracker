@@ -1,8 +1,7 @@
 abstract class AppStrings {
   //All Strings
 
-  static const String appName = "Yemen History!",
-      SPLASH_SCREEN = "'Welcome to \n Yemen History!'",
+  static const String appName = "Smart Product Tracker!",
       welcomeMessage = 'Welcome to\n Smart Product Tracker!',
           //!On Boarding Strings
           skip =
@@ -26,5 +25,8 @@ abstract class AppStrings {
       dontHaveAnAccount = "Don’t have an account ? ",
       forgotPassword = "Forgot Password ?",
       resetPassword = "Reset Password",
+      checkYourEmailToReset = "Check Your Email To Reset Your Password",
+      plzVerifyYourAccount = "Please Verify Your Account",
+      checkYourEmailToVerfiy = "Successfully,Check your email to verfiy your account",
       resetPasswordMessage = "Please enter your email address to receive a verification code";
 }

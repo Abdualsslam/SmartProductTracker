@@ -6,4 +6,8 @@ class AppImages {
 
   // Splash screen images
   static const String priceLogo = '${_animations}price.gif';
+
+  //auth
+  static const String forgotPassowrd = '${_basePath}forgot_password.png';
+  static const String checking = '${_animations}checking.gif';
 }
