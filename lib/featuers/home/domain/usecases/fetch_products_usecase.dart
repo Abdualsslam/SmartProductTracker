@@ -3,12 +3,12 @@ import 'package:smart_product_tracker/core/errors/failure.dart';
 import '../entities/product_entity.dart';
 import '../repositories/product_repository.dart';
 
-class GetAllProductsUseCase {
+class FetchProductsUseCase {
   final ProductRepository repository;
 
-  GetAllProductsUseCase(this.repository);
+  FetchProductsUseCase(this.repository);
 
   Future<Either<Failure, List<ProductEntity>>> call() {
-    return repository.getAllProducts();
+    return repository.fetchProducts();
   }
 }
