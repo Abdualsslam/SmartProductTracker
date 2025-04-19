@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_product_tracker/featuers/alerts/domain/entities/alert_entity.dart';
+import 'package:smart_product_tracker/featuers/alerts/presentation/cubit/alert_cubit.dart';
 
 Future<void> showPriceAlertDialog({
   required BuildContext context,
@@ -24,7 +27,7 @@ Future<void> showPriceAlertDialog({
             TextField(
               controller: _priceController,
               keyboardType: TextInputType.numberWithOptions(decimal: true),
-              decoration: const InputDecoration(labelText: 'Target Price ', hintText: 'like: 500.00', border: OutlineInputBorder()),
+              decoration: const InputDecoration(labelText: 'Target Price', hintText: 'like: 500.00', border: OutlineInputBorder()),
             ),
           ],
         ),
@@ -36,10 +39,14 @@ Future<void> showPriceAlertDialog({
               final input = _priceController.text;
               final price = double.tryParse(input);
               if (price != null) {
-                onSave(price);
+                /// ✅ استدعاء Cubit هنا
+                final alert = PriceAlert(productId: productId, targetPrice: price);
+
+                context.read<AlertCubit>().addAlert(alert);
+
+                onSave(price); // لو كنت لا تزال تستخدمها في مكان ما
                 Navigator.of(context).pop();
               } else {
-                // تنبيه إذا كان الإدخال غير صالح
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('يرجى إدخال سعر صالح')));
               }
             },

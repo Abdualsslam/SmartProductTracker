@@ -4,6 +4,8 @@ import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:hive/hive.dart';
 import 'package:smart_product_tracker/core/connection/network_info.dart';
 import 'package:smart_product_tracker/core/database/cache/cache_helper.dart';
+import 'package:smart_product_tracker/featuers/alerts/domain/usecases/get_alerts_usecase.dart';
+import 'package:smart_product_tracker/featuers/alerts/domain/usecases/set_price_alert_usecase.dart';
 import 'package:smart_product_tracker/featuers/home/Presentation/cubit/home_cubit.dart';
 import 'package:smart_product_tracker/featuers/home/data/datasources/product_local_data_source.dart';
 import 'package:smart_product_tracker/featuers/home/data/datasources/product_local_data_source_impl.dart';
@@ -13,6 +15,14 @@ import 'package:smart_product_tracker/featuers/home/data/models/product_model.da
 import 'package:smart_product_tracker/featuers/home/data/repositories/product_repository_impl.dart';
 import 'package:smart_product_tracker/featuers/home/domain/repositories/product_repository.dart';
 import 'package:smart_product_tracker/featuers/home/domain/usecases/fetch_products_usecase.dart';
+
+// تنبيهات
+import 'package:smart_product_tracker/featuers/alerts/data/datasources/alert_remote_data_source.dart';
+import 'package:smart_product_tracker/featuers/alerts/data/datasources/alert_remote_data_source_impl.dart';
+import 'package:smart_product_tracker/featuers/alerts/data/repositories/alert_repository_impl.dart';
+import 'package:smart_product_tracker/featuers/alerts/domain/repositories/alert_repository.dart';
+import 'package:smart_product_tracker/featuers/alerts/domain/usecases/delete_alert_usecase.dart';
+import 'package:smart_product_tracker/featuers/alerts/presentation/cubit/alert_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -28,8 +38,8 @@ Future<void> setupLocator() async {
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
   // ✅ تسجيل DataSources
-  sl.registerLazySingleton<ProductRemoteDataSource>(() => ProductRemoteDataSourceImpl(sl<FirebaseFirestore>()));
-  sl.registerLazySingleton<ProductLocalDataSource>(() => ProductLocalDataSourceImpl(sl<Box<ProductModel>>()));
+  sl.registerLazySingleton<ProductRemoteDataSource>(() => ProductRemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<ProductLocalDataSource>(() => ProductLocalDataSourceImpl(sl()));
 
   // ✅ تسجيل Repository
   sl.registerLazySingleton<ProductRepository>(
@@ -44,4 +54,15 @@ Future<void> setupLocator() async {
 
   // ✅ تسجيل أي كاش Helper
   sl.registerSingleton<CacheHelper>(CacheHelper());
+
+  // ✅ ✅ تسجيل طبقة التنبيهات Alerts
+  sl.registerLazySingleton<AlertRemoteDataSource>(() => AlertRemoteDataSourceImpl(sl()));
+
+  sl.registerLazySingleton<AlertRepository>(() => AlertRepositoryImpl(remoteDataSource: sl(), cacheHelper: sl()));
+
+  sl.registerLazySingleton(() => AddAlertUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteAlertUseCase(sl()));
+  sl.registerLazySingleton(() => GetAllAlertsUseCase(sl()));
+
+  sl.registerFactory(() => AlertCubit(addAlert: sl(), deleteAlert: sl(), getAllAlerts: sl()));
 }

@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smart_product_tracker/core/services/service_locator.dart';
+import 'package:smart_product_tracker/featuers/alerts/presentation/cubit/alert_cubit.dart';
 import 'package:smart_product_tracker/featuers/auth/presentation/auth_cubit/cubit/auth_cubit.dart';
 import 'package:smart_product_tracker/featuers/auth/presentation/views/forgot_password_view.dart';
 import 'package:smart_product_tracker/featuers/auth/presentation/views/sign_in_view.dart';
@@ -10,7 +12,9 @@ import 'package:smart_product_tracker/featuers/splash/Presentation/splash_view.d
 final GoRouter router = GoRouter(
   routes: [
     GoRoute(path: '/', builder: (context, state) => const SplashView()),
-    GoRoute(path: '/home', builder: (context, state) => HomeView()),
+    // GoRoute(path: '/home', builder: (context, state) => HomeView()),
+    GoRoute(path: '/home', builder: (context, state) => BlocProvider(create: (context) => sl<AlertCubit>(), child: const HomeView())),
+
     GoRoute(path: "/signUp", builder: (context, state) => BlocProvider(create: (context) => AuthCubit(), child: const SignUpView())),
     GoRoute(path: "/signIn", builder: (context, state) => BlocProvider(create: (context) => AuthCubit(), child: const SignInView())),
     GoRoute(
