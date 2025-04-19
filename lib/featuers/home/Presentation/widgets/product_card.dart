@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_product_tracker/featuers/home/Presentation/widgets/alert_dialog.dart';
+import 'package:smart_product_tracker/featuers/alerts/presentation/widgets/price_alert_dialog.dart';
 import 'package:smart_product_tracker/featuers/home/domain/entities/product_entity.dart';
 
 class ProductCard extends StatelessWidget {

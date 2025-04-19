@@ -13,7 +13,7 @@ Future<void> showPriceAlertDialog({
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: Text('Set alert price for $productId'),
+        title: Text('Set alert price'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -24,7 +24,7 @@ Future<void> showPriceAlertDialog({
             TextField(
               controller: _priceController,
               keyboardType: TextInputType.numberWithOptions(decimal: true),
-              decoration: const InputDecoration(labelText: 'السعر المستهدف', hintText: 'مثلاً: 500.00', border: OutlineInputBorder()),
+              decoration: const InputDecoration(labelText: 'Target Price ', hintText: 'like: 500.00', border: OutlineInputBorder()),
             ),
           ],
         ),
