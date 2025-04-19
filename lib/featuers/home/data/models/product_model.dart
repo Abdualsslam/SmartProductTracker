@@ -23,6 +23,9 @@ class ProductModel extends ProductEntity {
   @HiveField(5)
   final String storeName;
 
+  @HiveField(6)
+  final String description;
+
   ProductModel({
     required this.productId,
     required this.title,
@@ -30,6 +33,7 @@ class ProductModel extends ProductEntity {
     required this.originalPrice,
     required this.discountPrice,
     required this.storeName,
+    required this.description,
   }) : super(
          id: productId,
          title: title,
@@ -37,6 +41,7 @@ class ProductModel extends ProductEntity {
          originalPrice: originalPrice,
          discountPrice: discountPrice,
          storeName: storeName,
+         description: description,
        );
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
@@ -47,6 +52,7 @@ class ProductModel extends ProductEntity {
       originalPrice: (map['originalPrice'] ?? 0).toDouble(),
       discountPrice: (map['discountPrice'] ?? 0).toDouble(),
       storeName: map['storeName'],
+      description: map['description'] ?? '',
     );
   }
 
@@ -58,6 +64,7 @@ class ProductModel extends ProductEntity {
       'originalPrice': originalPrice,
       'discountPrice': discountPrice,
       'storeName': storeName,
+      'description': description,
     };
   }
 }

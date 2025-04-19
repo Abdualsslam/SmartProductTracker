@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:smart_product_tracker/core/functions/navigation/navigation.dart';
 import 'package:smart_product_tracker/core/services/service_locator.dart';
 import 'package:smart_product_tracker/featuers/home/Presentation/cubit/home_cubit.dart';
 import 'package:smart_product_tracker/featuers/home/Presentation/cubit/home_state.dart';
@@ -14,7 +16,20 @@ class HomeView extends StatelessWidget {
     return BlocProvider(
       create: (_) => sl<HomeCubit>()..fetchProducts(),
       child: Scaffold(
-        appBar: AppBar(title: Text('products')),
+        appBar: AppBar(
+          title: Text('Smart Product Tracker', style: Theme.of(context).textTheme.headlineMedium),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () {
+                // Log out logic here
+                customNavigate(context, '/signIn');
+              },
+            ),
+          ],
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+        ),
         body: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
             if (state is HomeLoading) return Center(child: CircularProgressIndicator());

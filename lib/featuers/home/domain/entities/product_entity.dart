@@ -5,7 +5,7 @@ class ProductEntity {
   final double originalPrice;
   final double discountPrice;
   final String storeName;
-
+  final String description;
   ProductEntity({
     required this.id,
     required this.title,
@@ -13,5 +13,6 @@ class ProductEntity {
     required this.originalPrice,
     required this.discountPrice,
     required this.storeName,
+    required this.description,
   });
 }
