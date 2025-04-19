@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:smart_product_tracker/app/smart_product_tracker.dart';
+import 'package:smart_product_tracker/core/database/cache/cache_helper.dart';
 import 'package:smart_product_tracker/core/services/service_locator.dart';
 import 'package:smart_product_tracker/featuers/home/data/models/product_model.dart';
 import 'package:smart_product_tracker/firebase_options.dart';
@@ -19,9 +20,15 @@ void main() async {
 
   await setupLocator(); // ⛔ مهم: لا تستدعي setupLocator قبل فتح البوكس
 
+  final cacheHelper = sl<CacheHelper>();
+  // استدع دالة التهيئة وانتظر اكتمالها
+  await cacheHelper.init();
+
   // uploadSampleProducts();
   runApp(const SmartProductTracker());
 }
+
+getIt() {}
 
 void uploadSampleProducts() async {
   final firestore = FirebaseFirestore.instance;

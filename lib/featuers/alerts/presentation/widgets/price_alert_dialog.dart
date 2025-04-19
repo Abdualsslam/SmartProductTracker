@@ -1,58 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_product_tracker/featuers/alerts/domain/entities/alert_entity.dart';
-import 'package:smart_product_tracker/featuers/alerts/presentation/cubit/alert_cubit.dart';
+import 'package:flutter_notie/flutter_notie.dart';
 
-Future<void> showPriceAlertDialog({
-  required BuildContext context,
-  required String productId,
-  required String productName,
-  required double currentPrice,
-  required Function(double targetPrice) onSave,
-}) async {
-  final TextEditingController _priceController = TextEditingController();
+Future<double?> showPriceAlertDialog(BuildContext context, String productId) {
+  final _priceController = TextEditingController();
 
-  await showDialog(
+  return showDialog<double>(
     context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: Text('Set alert price'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(productName, style: const TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            Text(' current price: \$${currentPrice.toStringAsFixed(2)}'),
-            const SizedBox(height: 12),
-            TextField(
-              controller: _priceController,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-              decoration: const InputDecoration(labelText: 'Target Price', hintText: 'like: 500.00', border: OutlineInputBorder()),
+    builder:
+        (context) => AlertDialog(
+          title: const Text('set price alert'),
+          content: TextField(
+            controller: _priceController,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(hintText: 'enter price'),
+          ),
+          actions: [
+            TextButton(child: const Text('Cancel'), onPressed: () => Navigator.of(context).pop()),
+            ElevatedButton(
+              child: const Text('save'),
+              onPressed: () {
+                final input = _priceController.text;
+                final price = double.tryParse(input);
+
+                if (price != null) {
+                  Navigator.of(context).pop(price); // ✅ رجع السعر فقط
+                } else {
+                  FlutterNotie.error(context, message: 'plz enter a valid price');
+                }
+              },
             ),
           ],
         ),
-        actions: [
-          TextButton(child: const Text('Cancel'), onPressed: () => Navigator.of(context).pop()),
-          ElevatedButton(
-            child: const Text('Save'),
-            onPressed: () {
-              final input = _priceController.text;
-              final price = double.tryParse(input);
-              if (price != null) {
-                /// ✅ استدعاء Cubit هنا
-                final alert = PriceAlert(productId: productId, targetPrice: price);
-
-                context.read<AlertCubit>().addAlert(alert);
-
-                onSave(price); // لو كنت لا تزال تستخدمها في مكان ما
-                Navigator.of(context).pop();
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('يرجى إدخال سعر صالح')));
-              }
-            },
-          ),
-        ],
-      );
-    },
   );
 }

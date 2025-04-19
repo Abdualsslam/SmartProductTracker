@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_product_tracker/core/database/cache/cache_helper.dart';
+import 'package:smart_product_tracker/core/services/service_locator.dart';
 import 'package:smart_product_tracker/featuers/auth/presentation/auth_cubit/cubit/auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -19,7 +21,15 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> signUpWithEmailAndPassword() async {
     try {
       emit(SignupLoadingState());
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailAddress!, password: password!);
+
+      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailAddress!, password: password!);
+
+      // حفظ uid في الكاش
+      final uid = credential.user?.uid;
+      if (uid != null) {
+        sl<CacheHelper>().saveData(key: 'uId', value: uid);
+      }
+
       await addUserProfile();
       await verifyEmail();
       emit(SignupSuccessState());
@@ -63,7 +73,15 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> sigInWithEmailAndPassword() async {
     try {
       emit(SigninLoadingState());
-      await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailAddress!, password: password!);
+
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailAddress!, password: password!);
+
+      // حفظ uid في الكاش
+      final uid = credential.user?.uid;
+      if (uid != null) {
+        sl<CacheHelper>().saveData(key: 'uId', value: uid);
+      }
+
       emit(SigninSuccessState());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

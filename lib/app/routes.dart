@@ -6,6 +6,7 @@ import 'package:smart_product_tracker/featuers/auth/presentation/auth_cubit/cubi
 import 'package:smart_product_tracker/featuers/auth/presentation/views/forgot_password_view.dart';
 import 'package:smart_product_tracker/featuers/auth/presentation/views/sign_in_view.dart';
 import 'package:smart_product_tracker/featuers/auth/presentation/views/sign_up_view.dart';
+import 'package:smart_product_tracker/featuers/home/Presentation/cubit/home_cubit.dart';
 import 'package:smart_product_tracker/featuers/home/Presentation/home_view.dart';
 import 'package:smart_product_tracker/featuers/splash/Presentation/splash_view.dart';
 
@@ -13,7 +14,17 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(path: '/', builder: (context, state) => const SplashView()),
     // GoRoute(path: '/home', builder: (context, state) => HomeView()),
-    GoRoute(path: '/home', builder: (context, state) => BlocProvider(create: (context) => sl<AlertCubit>(), child: const HomeView())),
+    GoRoute(
+      path: '/home',
+      builder:
+          (context, state) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => sl<HomeCubit>()),
+              BlocProvider(create: (_) => AlertCubit(addAlert: sl(), deleteAlert: sl(), getAllAlerts: sl())),
+            ],
+            child: const HomeView(),
+          ),
+    ),
 
     GoRoute(path: "/signUp", builder: (context, state) => BlocProvider(create: (context) => AuthCubit(), child: const SignUpView())),
     GoRoute(path: "/signIn", builder: (context, state) => BlocProvider(create: (context) => AuthCubit(), child: const SignInView())),
