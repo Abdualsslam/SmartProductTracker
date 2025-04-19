@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_product_tracker/featuers/home/Presentation/widgets/alert_dialog.dart';
 import 'package:smart_product_tracker/featuers/home/domain/entities/product_entity.dart';
 
 class ProductCard extends StatelessWidget {
@@ -26,46 +27,70 @@ class ProductCard extends StatelessWidget {
 
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-
+        child: Stack(
           children: [
-            Container(
-              height: 88,
-              width: 88,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.grey[200]),
-              child: CachedNetworkImage(
-                imageUrl: product.imageUrl,
-                placeholder: (context, url) => CircularProgressIndicator(),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-                fit: BoxFit.cover,
-              ),
-            ),
-            SizedBox(width: 16),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+
               children: [
-                Text(product.title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                SizedBox(width: 8),
-                Text(product.storeName, style: Theme.of(context).textTheme.bodyMedium),
-                SizedBox(width: 8),
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  // crossAxisAlignment: CrossAxisAlignment.center,
+                Container(
+                  height: 88,
+                  width: 88,
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+                  child: CachedNetworkImage(
+                    imageUrl: product.imageUrl,
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                SizedBox(width: 16),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("\$${product.originalPrice}", style: TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold)),
-                    SizedBox(width: 55),
-                    IconButton(
-                      icon: Icon(Icons.notifications_active),
-                      onPressed: () {
-                        // Show dialog to set alert price
-                      },
+                    Text(product.title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    SizedBox(width: 8),
+                    Text(product.storeName, style: Theme.of(context).textTheme.bodyMedium),
+                    SizedBox(width: 8),
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text("\$${product.originalPrice}", style: TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold)),
+                        SizedBox(width: 55),
+                        IconButton(
+                          icon: Icon(Icons.open_in_new_outlined),
+                          onPressed: () {
+                            // Show dialog to set alert price
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ],
+            ),
+            Positioned(
+              right: 0,
+              bottom: 0,
+              child: IconButton(
+                icon: Icon(Icons.notifications_active),
+                onPressed: () {
+                  showPriceAlertDialog(
+                    context: context,
+                    productId: product.id,
+                    productName: product.title,
+                    currentPrice: product.discountPrice,
+                    onSave: (targetPrice) {
+                      // هنا تحفظ التنبيه للمستخدم
+                      // saveAlertForUser(product.id, targetPrice);
+                    },
+                  );
+                },
+              ),
             ),
           ],
         ),

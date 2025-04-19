@@ -8,21 +8,27 @@ class ProductModel extends ProductEntity {
   @HiveField(0)
   final String productId;
 
+  @override
   @HiveField(1)
   final String title;
 
+  @override
   @HiveField(2)
   final String imageUrl;
 
+  @override
   @HiveField(3)
   final double originalPrice;
 
+  @override
   @HiveField(4)
   final double discountPrice;
 
+  @override
   @HiveField(5)
   final String storeName;
 
+  @override
   @HiveField(6)
   final String description;
 

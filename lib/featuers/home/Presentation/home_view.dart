@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:smart_product_tracker/core/functions/navigation/navigation.dart';
 import 'package:smart_product_tracker/core/services/service_locator.dart';
 import 'package:smart_product_tracker/featuers/home/Presentation/cubit/home_cubit.dart';
