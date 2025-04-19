@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import 'package:smart_product_tracker/core/errors/failure.dart';
 import 'package:smart_product_tracker/featuers/alerts/data/datasources/alert_remote_data_source_impl.dart';
 import 'package:smart_product_tracker/featuers/alerts/data/models/price_alert_model.dart';
 import 'package:smart_product_tracker/featuers/alerts/domain/entities/alert_entity.dart';
@@ -21,7 +23,12 @@ class AlertRepositoryImpl implements AlertRepository {
   }
 
   @override
-  Future<List<PriceAlert>> getAllAlerts() {
-    return remoteDataSource.getAllAlerts(userId);
+  Future<Either<Failure, List<PriceAlert>>> getAllAlerts() async {
+    try {
+      final alerts = await remoteDataSource.getAllAlerts(userId);
+      return Right(alerts);
+    } catch (e) {
+      return Left(ServerFailure(errMessage: e.toString()));
+    }
   }
 }
