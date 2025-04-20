@@ -3,7 +3,7 @@ class ProductEntity {
   final String title;
   final String imageUrl;
   final double originalPrice;
-  final double discountPrice;
+  final double? discountPrice;
   final String storeName;
   final String description;
   ProductEntity({
@@ -11,7 +11,7 @@ class ProductEntity {
     required this.title,
     required this.imageUrl,
     required this.originalPrice,
-    required this.discountPrice,
+    this.discountPrice,
     required this.storeName,
     required this.description,
   });

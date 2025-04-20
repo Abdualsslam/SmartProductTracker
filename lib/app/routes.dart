@@ -13,7 +13,7 @@ import 'package:smart_product_tracker/featuers/splash/Presentation/splash_view.d
 final GoRouter router = GoRouter(
   routes: [
     GoRoute(path: '/', builder: (context, state) => const SplashView()),
-    // GoRoute(path: '/home', builder: (context, state) => HomeView()),
+    GoRoute(path: '/home', builder: (context, state) => HomeView()),
     GoRoute(
       path: '/home',
       builder:

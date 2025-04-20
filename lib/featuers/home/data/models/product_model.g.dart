@@ -13,15 +13,13 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
   @override
   ProductModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
+    final fields = <int, dynamic>{for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read()};
     return ProductModel(
       productId: fields[0] as String,
       title: fields[1] as String,
       imageUrl: fields[2] as String,
       originalPrice: fields[3] as double,
-      discountPrice: fields[4] as double,
+      discountPrice: fields[4] as double?,
       storeName: fields[5] as String,
       description: fields[6] as String,
     );
@@ -52,8 +50,5 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ProductModelAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+      identical(this, other) || other is ProductModelAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }

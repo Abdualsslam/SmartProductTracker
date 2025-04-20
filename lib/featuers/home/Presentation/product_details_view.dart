@@ -1,0 +1,65 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_product_tracker/featuers/alerts/domain/entities/alert_entity.dart';
+import 'package:smart_product_tracker/featuers/alerts/presentation/cubit/alert_cubit.dart';
+import 'package:smart_product_tracker/featuers/home/domain/entities/product_entity.dart';
+
+class ProductDetailsPage extends StatelessWidget {
+  final ProductEntity product;
+  final PriceAlert? alert;
+
+  const ProductDetailsPage({Key? key, required this.product, this.alert}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final currentPrice = product.discountPrice ?? product.originalPrice;
+
+    return Scaffold(
+      appBar: AppBar(title: Text(product.title)),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: ListView(
+          children: [
+            Image.network(product.imageUrl, height: 250, fit: BoxFit.cover),
+            const SizedBox(height: 16),
+            Text(product.title, style: Theme.of(context).textTheme.headlineSmall),
+            const SizedBox(height: 8),
+            Text('السعر الحالي: \$${currentPrice.toStringAsFixed(2)}', style: TextStyle(fontSize: 18, color: Colors.green)),
+            if (product.discountPrice != null)
+              Text('السعر الأصلي: \$${product.originalPrice.toStringAsFixed(2)}', style: TextStyle(decoration: TextDecoration.lineThrough)),
+            const SizedBox(height: 12),
+            Text('الوصف:', style: Theme.of(context).textTheme.titleMedium),
+            const SizedBox(height: 4),
+            Text(product.description ?? 'لا يوجد وصف'),
+            const SizedBox(height: 20),
+            // ElevatedButton.icon(
+            //   onPressed: () async {
+            //     // final uri = Uri.parse(product.storeLink);
+            //     // if (await canLaunchUrl(uri)) {
+            //     //   await launchUrl(uri, mode: LaunchMode.externalApplication);
+            //     // }
+            //   },
+            //   icon: Icon(Icons.store),
+            //   label: Text('الذهاب إلى المتجر'),
+            // ),
+            if (alert != null) ...[
+              const SizedBox(height: 30),
+              Text('تم تعيين تنبيه عندما يصل السعر إلى: \$${alert!.targetPrice.toStringAsFixed(2)}', style: TextStyle(fontSize: 16)),
+              const SizedBox(height: 10),
+              ElevatedButton.icon(
+                onPressed: () {
+                  context.read<AlertCubit>().deletePriceAlert(product.id);
+
+                  Navigator.pop(context); // نرجع بعد حذف التنبيه
+                },
+                icon: Icon(Icons.delete),
+                label: Text('حذف التنبيه'),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}

@@ -14,6 +14,7 @@ void main() async {
   await Hive.initFlutter(); // ✅ أول شيء بعد تهيئة الـ Widgets
 
   Hive.registerAdapter(ProductModelAdapter()); // ✅ سجل الـ TypeAdapter بعد التهيئة
+
   await Hive.openBox<ProductModel>('productsBox'); // ✅ بعدها افتح البوكس
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);

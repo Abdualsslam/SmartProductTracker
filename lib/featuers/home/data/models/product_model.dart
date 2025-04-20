@@ -22,7 +22,7 @@ class ProductModel extends ProductEntity {
 
   @override
   @HiveField(4)
-  final double discountPrice;
+  final double? discountPrice;
 
   @override
   @HiveField(5)
@@ -37,7 +37,7 @@ class ProductModel extends ProductEntity {
     required this.title,
     required this.imageUrl,
     required this.originalPrice,
-    required this.discountPrice,
+    this.discountPrice,
     required this.storeName,
     required this.description,
   }) : super(
@@ -56,7 +56,7 @@ class ProductModel extends ProductEntity {
       title: map['title'],
       imageUrl: map['imageUrl'],
       originalPrice: (map['originalPrice'] ?? 0).toDouble(),
-      discountPrice: (map['discountPrice'] ?? 0).toDouble(),
+      discountPrice: map['discountPrice'] != null ? (map['discountPrice'] as num).toDouble() : null,
       storeName: map['storeName'],
       description: map['description'] ?? '',
     );
