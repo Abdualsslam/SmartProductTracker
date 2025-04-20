@@ -7,6 +7,7 @@ import 'package:smart_product_tracker/featuers/alerts/presentation/cubit/alert_s
 import 'package:smart_product_tracker/featuers/alerts/presentation/widgets/price_alert_dialog.dart';
 import 'package:smart_product_tracker/featuers/home/Presentation/product_details_view.dart';
 import 'package:smart_product_tracker/featuers/home/domain/entities/product_entity.dart';
+import 'package:collection/collection.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductEntity product;
@@ -82,11 +83,13 @@ class ProductCard extends StatelessWidget {
                             IconButton(
                               icon: Icon(Icons.open_in_new_outlined),
                               onPressed: () {
-                                final alertsState = context.read<AlertCubit>().state;
-                                PriceAlert? alert;
+                                final alertCubit = context.read<AlertCubit>();
+                                final alertsState = alertCubit.state;
+
+                                PriceAlert? matchedAlert;
 
                                 if (alertsState is AlertLoaded) {
-                                  alert = alertsState.alerts.where((a) => a.productId == product.id).firstOrNull;
+                                  matchedAlert = alertsState.alerts.firstWhereOrNull((a) => a.productId == product.id);
                                 }
 
                                 Navigator.push(
@@ -94,8 +97,8 @@ class ProductCard extends StatelessWidget {
                                   MaterialPageRoute(
                                     builder:
                                         (_) => BlocProvider.value(
-                                          value: context.read<AlertCubit>(),
-                                          child: ProductDetailsPage(product: product),
+                                          value: alertCubit,
+                                          child: ProductDetailsView(product: product, alert: matchedAlert),
                                         ),
                                   ),
                                 );

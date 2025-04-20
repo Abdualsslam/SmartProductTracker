@@ -13,10 +13,10 @@ class TermsAndConditionWidget extends StatelessWidget {
         Text.rich(
           TextSpan(
             children: [
-              TextSpan(text: AppStrings.iHaveAgreeToOur, style: Theme.of(context).textTheme.headlineSmall),
+              TextSpan(text: AppStrings.iHaveAgreeToOur, style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 16)),
               TextSpan(
                 text: AppStrings.termsAndCondition,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(decoration: TextDecoration.underline),
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(decoration: TextDecoration.underline, fontSize: 16),
               ),
             ],
           ),

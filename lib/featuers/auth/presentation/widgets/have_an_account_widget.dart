@@ -12,8 +12,11 @@ class HaveAnAccountWidget extends StatelessWidget {
         child: Text.rich(
           TextSpan(
             children: [
-              TextSpan(text: text1, style: Theme.of(context).textTheme.headlineSmall),
-              TextSpan(text: text2, style: Theme.of(context).textTheme.headlineSmall!.copyWith(decoration: TextDecoration.underline)),
+              TextSpan(text: text1, style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 16)),
+              TextSpan(
+                text: text2,
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(decoration: TextDecoration.underline, fontSize: 16),
+              ),
             ],
           ),
         ),

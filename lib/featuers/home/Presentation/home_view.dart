@@ -8,16 +8,8 @@ import 'package:smart_product_tracker/featuers/alerts/presentation/cubit/alert_s
 import 'package:smart_product_tracker/featuers/home/Presentation/cubit/home_cubit.dart';
 import 'package:smart_product_tracker/featuers/home/Presentation/cubit/home_state.dart';
 import 'package:smart_product_tracker/featuers/home/Presentation/widgets/product_card.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:smart_product_tracker/featuers/home/domain/entities/product_entity.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -50,10 +42,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => sl<HomeCubit>()..fetchProducts()),
-        BlocProvider(create: (_) => AlertCubit(addAlert: sl(), deleteAlert: sl(), getAllAlerts: sl())..fetchAlerts()),
-      ],
+      providers: [BlocProvider(create: (_) => sl<HomeCubit>()..fetchProducts())],
       child: Scaffold(
         appBar: AppBar(
           title: Text('Smart Product Tracker', style: Theme.of(context).textTheme.headlineMedium),

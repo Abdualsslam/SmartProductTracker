@@ -13,7 +13,7 @@ class ForgotPasswordTextWidget extends StatelessWidget {
       },
       child: Align(
         alignment: Alignment.centerRight,
-        child: Text(AppStrings.forgotPassword, style: Theme.of(context).textTheme.headlineSmall),
+        child: Text(AppStrings.forgotPassword, style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 16)),
       ),
     );
   }

@@ -62,7 +62,7 @@ class CustomSignUpForm extends StatelessWidget {
                 },
               ),
               const TermsAndConditionWidget(),
-              const SizedBox(height: 88),
+              const SizedBox(height: 16),
               state is SignupLoadingState
                   ? CircularProgressIndicator(color: AppColors.primary)
                   : CustomBtn(

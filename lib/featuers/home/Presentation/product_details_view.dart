@@ -4,11 +4,11 @@ import 'package:smart_product_tracker/featuers/alerts/domain/entities/alert_enti
 import 'package:smart_product_tracker/featuers/alerts/presentation/cubit/alert_cubit.dart';
 import 'package:smart_product_tracker/featuers/home/domain/entities/product_entity.dart';
 
-class ProductDetailsPage extends StatelessWidget {
+class ProductDetailsView extends StatelessWidget {
   final ProductEntity product;
   final PriceAlert? alert;
 
-  const ProductDetailsPage({Key? key, required this.product, this.alert}) : super(key: key);
+  const ProductDetailsView({super.key, required this.product, this.alert});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class ProductDetailsPage extends StatelessWidget {
             //   icon: Icon(Icons.store),
             //   label: Text('الذهاب إلى المتجر'),
             // ),
-            if (alert != null) ...[
+            if (alert != null && alert!.productId == product.id && product.originalPrice <= alert!.targetPrice) ...[
               const SizedBox(height: 30),
               Text('تم تعيين تنبيه عندما يصل السعر إلى: \$${alert!.targetPrice.toStringAsFixed(2)}', style: TextStyle(fontSize: 16)),
               const SizedBox(height: 10),

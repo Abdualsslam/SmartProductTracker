@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_notie/flutter_notie.dart';
 
 Future<double?> showPriceAlertDialog(BuildContext context, String productId) {
-  final _priceController = TextEditingController();
+  final priceController = TextEditingController();
 
   return showDialog<double>(
     context: context,
@@ -10,7 +10,7 @@ Future<double?> showPriceAlertDialog(BuildContext context, String productId) {
         (context) => AlertDialog(
           title: const Text('set price alert'),
           content: TextField(
-            controller: _priceController,
+            controller: priceController,
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(hintText: 'enter price'),
           ),
@@ -19,7 +19,7 @@ Future<double?> showPriceAlertDialog(BuildContext context, String productId) {
             ElevatedButton(
               child: const Text('save'),
               onPressed: () {
-                final input = _priceController.text;
+                final input = priceController.text;
                 final price = double.tryParse(input);
 
                 if (price != null) {

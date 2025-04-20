@@ -64,5 +64,5 @@ Future<void> setupLocator() async {
   sl.registerLazySingleton(() => DeleteAlertUseCase(sl()));
   sl.registerLazySingleton(() => GetAllAlertsUseCase(sl()));
 
-  sl.registerFactory(() => AlertCubit(addAlert: sl(), deleteAlert: sl(), getAllAlerts: sl()));
+  sl.registerLazySingleton<AlertCubit>(() => AlertCubit(addAlert: sl(), deleteAlert: sl(), getAllAlerts: sl())..fetchAlerts());
 }
