@@ -24,13 +24,16 @@ class ProductDetailsView extends StatelessWidget {
             const SizedBox(height: 16),
             Text(product.title, style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: 8),
-            Text('السعر الحالي: \$${currentPrice.toStringAsFixed(2)}', style: TextStyle(fontSize: 18, color: Colors.green)),
+            Text(' Current Price: \$${currentPrice.toStringAsFixed(2)}', style: TextStyle(fontSize: 18, color: Colors.green)),
             if (product.discountPrice != null)
-              Text('السعر الأصلي: \$${product.originalPrice.toStringAsFixed(2)}', style: TextStyle(decoration: TextDecoration.lineThrough)),
+              Text(
+                ' Original Price : \$${product.originalPrice.toStringAsFixed(2)}',
+                style: TextStyle(decoration: TextDecoration.lineThrough),
+              ),
             const SizedBox(height: 12),
-            Text('الوصف:', style: Theme.of(context).textTheme.titleMedium),
+            Text('Description:', style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 4),
-            Text(product.description ?? 'لا يوجد وصف'),
+            Text(product.description ?? 'No Description'),
             const SizedBox(height: 20),
             // ElevatedButton.icon(
             //   onPressed: () async {
@@ -44,7 +47,7 @@ class ProductDetailsView extends StatelessWidget {
             // ),
             if (alert != null && alert!.productId == product.id && product.originalPrice <= alert!.targetPrice) ...[
               const SizedBox(height: 30),
-              Text('تم تعيين تنبيه عندما يصل السعر إلى: \$${alert!.targetPrice.toStringAsFixed(2)}', style: TextStyle(fontSize: 16)),
+              Text('An alert is set when the price reaches: \$${alert!.targetPrice.toStringAsFixed(2)}', style: TextStyle(fontSize: 16)),
               const SizedBox(height: 10),
               ElevatedButton.icon(
                 onPressed: () {
@@ -53,7 +56,7 @@ class ProductDetailsView extends StatelessWidget {
                   Navigator.pop(context); // نرجع بعد حذف التنبيه
                 },
                 icon: Icon(Icons.delete),
-                label: Text('حذف التنبيه'),
+                label: Text('Delete Alert'),
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
               ),
             ],
