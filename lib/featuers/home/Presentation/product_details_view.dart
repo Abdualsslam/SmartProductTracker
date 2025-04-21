@@ -42,7 +42,7 @@ class ProductDetailsView extends StatelessWidget {
             const SizedBox(height: 4),
             Text(product.description ?? 'No Description'),
             const SizedBox(height: 20),
-            if (alert != null && alert!.productId == product.id && product.originalPrice <= alert!.targetPrice) ...[
+            if (alert != null && alert!.productId == product.id) ...[
               const SizedBox(height: 30),
               Text(
                 'An alert is set when the price reaches: \$${alert!.targetPrice.toStringAsFixed(2)}',

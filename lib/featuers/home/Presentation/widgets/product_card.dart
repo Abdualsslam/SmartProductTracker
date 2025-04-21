@@ -41,7 +41,7 @@ class ProductCard extends StatelessWidget {
           },
           child: Container(
             height: 130,
-            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 44),
+            margin: EdgeInsets.symmetric(vertical: 8, horizontal: HelperFunctions.screenWidth(context) * 0.07),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: isDark ? Color.fromARGB(255, 27, 27, 31) : Colors.white60,

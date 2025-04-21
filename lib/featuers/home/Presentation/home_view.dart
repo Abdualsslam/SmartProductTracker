@@ -8,6 +8,7 @@ import 'package:smart_product_tracker/featuers/alerts/presentation/cubit/alert_c
 import 'package:smart_product_tracker/featuers/alerts/presentation/cubit/alert_state.dart';
 import 'package:smart_product_tracker/featuers/home/Presentation/cubit/home_cubit.dart';
 import 'package:smart_product_tracker/featuers/home/Presentation/cubit/home_state.dart';
+import 'package:smart_product_tracker/featuers/home/Presentation/user_profile_view.dart';
 import 'package:smart_product_tracker/featuers/home/Presentation/widgets/product_card.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:smart_product_tracker/featuers/home/domain/entities/product_entity.dart';
@@ -60,12 +61,10 @@ class _HomeViewState extends State<HomeView> {
                 );
               },
             ),
-
-            // زر تسجيل الخروج
             IconButton(
-              icon: Icon(Icons.logout),
+              icon: const Icon(Icons.account_circle),
               onPressed: () {
-                customNavigate(context, '/signIn');
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const UserProfileView()));
               },
             ),
           ],

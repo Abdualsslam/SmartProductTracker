@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:smart_product_tracker/core/database/cache/cache_helper.dart';
 import 'package:smart_product_tracker/core/services/service_locator.dart';
 import 'package:smart_product_tracker/featuers/auth/presentation/auth_cubit/cubit/auth_state.dart';
@@ -81,7 +82,27 @@ class AuthCubit extends Cubit<AuthState> {
       if (uid != null) {
         sl<CacheHelper>().saveData(key: 'uId', value: uid);
       }
+      try {
+        final userDoc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
+        if (userDoc.exists) {
+          final firstName = userDoc.data()?['first_name'] ?? 'NoName';
+          final lastName = userDoc.data()?['last_name'] ?? 'NoLastName';
+
+          print('User name: $firstName $lastName');
+
+          final userBox = Hive.box('userBox');
+          await userBox.put('first_name', firstName);
+          await userBox.put('last_name', lastName);
+          await userBox.put('email', emailAddress);
+          print('-------------------------------------------------');
+          print('____Firestore data: ${userDoc.data()}');
+        } else {
+          print('___User document not found!');
+        }
+      } catch (e) {
+        print('Error fetching user data: $e');
+      }
       emit(SigninSuccessState());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -107,7 +128,13 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> addUserProfile() async {
-    CollectionReference users = FirebaseFirestore.instance.collection("users");
-    await users.add({"email": emailAddress, "frist_name": fristName, "last_name": lastName});
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null) {
+      await FirebaseFirestore.instance.collection("users").doc(uid).set({
+        "email": emailAddress,
+        "first_name": fristName,
+        "last_name": lastName,
+      });
+    }
   }
 }

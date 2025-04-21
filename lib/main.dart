@@ -17,6 +17,7 @@ void main() async {
 
   await Hive.openBox<ProductModel>('productsBox'); // ✅ بعدها افتح البوكس
 
+  await Hive.openBox('userBox');
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await setupLocator(); // ⛔ مهم: لا تستدعي setupLocator قبل فتح البوكس
