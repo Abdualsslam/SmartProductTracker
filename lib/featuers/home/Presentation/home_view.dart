@@ -1,3 +1,4 @@
+import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_product_tracker/core/functions/navigation/navigation.dart';
@@ -47,6 +48,20 @@ class _HomeViewState extends State<HomeView> {
         appBar: AppBar(
           title: Text('Smart Product Tracker', style: Theme.of(context).textTheme.headlineMedium),
           actions: [
+            // مؤشر الإنترنت (الدائرة)
+            StreamBuilder<DataConnectionStatus>(
+              stream: DataConnectionChecker().onStatusChange,
+              builder: (context, snapshot) {
+                final isConnected = snapshot.data == DataConnectionStatus.connected;
+
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: CircleAvatar(radius: 8, backgroundColor: isConnected ? Colors.green : Colors.red),
+                );
+              },
+            ),
+
+            // زر تسجيل الخروج
             IconButton(
               icon: Icon(Icons.logout),
               onPressed: () {
@@ -57,6 +72,7 @@ class _HomeViewState extends State<HomeView> {
           centerTitle: true,
           automaticallyImplyLeading: false,
         ),
+
         body: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
             return BlocBuilder<AlertCubit, AlertState>(
